@@ -1,10 +1,11 @@
 <canvas id="gc" width="400" height="400"></canvas>
 <script>
+  fps = 1000/15
   window.onload=function() {
     canv=document.getElementById("gc");
     ctx=canv.getContext("2d");
     document.addEventListener("keydown",keyPush);
-    setInterval(game,0.01);
+    setInterval(game,fps);
   }
   // player 1
   batX1=380; //initial plyaer 1 bat x coordinate
@@ -20,10 +21,10 @@
   batBoundaryTopY=10; //bat cant go further than this boundary
   batBoundaryBottomY=390-batHeight; //bat cant go further than this boundary
   // ball properties
-  ballX=ballY=15; //initial x, y coordinates of the ball
+  ballX=ballY=400/2; //initial x, y coordinates of the ball
   //x and y velocities, final velocity will the combination of the two
-  ballVelX=1; //initial x velocity of ball
-  ballVelX=1; //initial y velocity of ball
+  ballVelX=0.01; //initial x velocity of ball
+  ballVelY=0.01; //initial y velocity of ball
   function game() {
     //redraw canvas
     ctx.fillStyle="black";
@@ -43,10 +44,14 @@
 
     // draw the ball
     ctx.beginPath();
-    ctx.arc(ballX, ballY, 50, 0, 2 * Math.PI);
+    ctx.arc(ballX, ballY, 10, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.fillStyle="lime";
     ctx.fill();
+
+    //move the ball
+    ballX+=ballVelX*fps;
+    ballY+=ballVelY*fps;
   }
 
   function keyPush(evt) {
