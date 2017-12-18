@@ -1,12 +1,16 @@
 <canvas id="gc" width="400" height="400"></canvas>
 <script>
-  fps = 1000/15
+  fps = 1000/50
+
   window.onload=function() {
     canv=document.getElementById("gc");
     ctx=canv.getContext("2d");
-    document.addEventListener("keydown",keyPush);
+    height=canv.height;
+    width=canv.width;
+    document.addEventListener("keydown",controls);
     setInterval(game,fps);
   }
+  //INITIALIZE ALL CONSTANTS
   // player 1
   batX1=380; //initial plyaer 1 bat x coordinate
   batY1=340; //initial player 1 bat y coordinate
@@ -23,12 +27,13 @@
   // ball properties
   ballX=ballY=400/2; //initial x, y coordinates of the ball
   //x and y velocities, final velocity will the combination of the two
-  ballVelX=0.01; //initial x velocity of ball
-  ballVelY=0.01; //initial y velocity of ball
+  ballVelX=0.1; //initial x velocity of ball
+  ballVelY=0.1; //initial y velocity of ball
+  //DEFINE EACH FRAME IN FUNCTION CALLED GAME
   function game() {
     //redraw canvas
     ctx.fillStyle="black";
-    ctx.fillRect(0,0,canv.width,canv.height);
+    ctx.fillRect(0,0,width,height);
     ctx.fillStyle="lime";
 
     // draw player1
@@ -53,8 +58,8 @@
     ballX+=ballVelX*fps;
     ballY+=ballVelY*fps;
   }
-
-  function keyPush(evt) {
+  //ADD CONTROLLER
+  function controls(evt) {
     switch(evt.keyCode) {
         // player 1
         case 38: //up key
