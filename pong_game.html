@@ -6,18 +6,21 @@
     document.addEventListener("keydown",keyPush);
     setInterval(game,0.01);
   }
-  batx1=10; //initial plyaer 1 bat x coordinate
-  baty1=340; //initial player 1 bat y coordinate
-
-  batx2=380; //initial plyaer 2 bat x coordinate
-  baty2=10; //initial player 2 bat y coordinate
-  batwidth=10; //width of each bat
-  batheight=50; //width of each bat
-  ballx=bally=15; //initial x, y coordinates of the ball
+  // player 1
+  batX1=380; //initial plyaer 1 bat x coordinate
+  batY1=340; //initial player 1 bat y coordinate
+  // player 2
+  batX2=10; //initial plyaer 2 bat x coordinate
+  batY2=10; //initial player 2 bat y coordinate
+  // bat properties
+  batWidth=10; //width of each bat
+  batWeight=50; //width of each bat
+  batBoundaryTopY=; //bat cant go further than this boundary
+  ballX=ballY=15; //initial x, y coordinates of the ball
   gs=tc=20;
   xv=yv=0;
-  player1=[{x:batx1,y:baty1}];
-  player2=[{x:batx2,y:baty2}];
+  player1=[{x:batX1,y:batY1}];
+  player2=[{x:batX2,y:batY2}];
   function game() {
     ctx.fillStyle="black";
     ctx.fillRect(0,0,canv.width,canv.height);
@@ -25,14 +28,16 @@
     ctx.fillStyle="lime";
 
     // draw player1
-    ctx.fillRect(player1[0].x, player1[0].y, batwidth, batheight);
+    ctx.fillRect(player1[0].x, player1[0].y, batWidth, batHeight);
 
     // draw player2
-    ctx.fillRect(player2[0].x, player2[0].y, batwidth, batheight);
+    ctx.fillRect(player2[0].x, player2[0].y, batWidth, batHeight);
 
-    player1.push({x:batx1,y:baty1});
+    player1.push({x:batX1,y:batY1});
     player1.shift();
-    
+    player2.push({x:batX2,y:batY2});
+    player2.shift();
+
     // trail.push({x:px,y:py});
     // while(trail.length>tail) {
     // trail.shift();
@@ -50,12 +55,22 @@
 
   function keyPush(evt) {
     switch(evt.keyCode) {
+        // player 1
         case 38: //up key
-            baty1-=10;
-            break;
+            if (true) {
+              batY1-=10;
+              break;
+            }
         case 40: //down key
-            baty1+=10;
+            batY1+=10;
             break;
-    }
+        // player 2
+        case 87: //w key
+            batY2+=10;
+            break;
+        case 83: //s key
+            batY2-=10;
+            break;
+}
   }
 </script>
