@@ -9,47 +9,44 @@
   // player 1
   batX1=380; //initial plyaer 1 bat x coordinate
   batY1=340; //initial player 1 bat y coordinate
+  player1=[{x:batX1,y:batY1}];
   // player 2
   batX2=10; //initial plyaer 2 bat x coordinate
   batY2=10; //initial player 2 bat y coordinate
+  player2=[{x:batX2,y:batY2}];
   // bat properties
   batWidth=10; //width of each bat
   batHeight=50; //width of each bat
   batBoundaryTopY=10; //bat cant go further than this boundary
   batBoundaryBottomY=390-batHeight; //bat cant go further than this boundary
+  // ball properties
   ballX=ballY=15; //initial x, y coordinates of the ball
-  player1=[{x:batX1,y:batY1}];
-  player2=[{x:batX2,y:batY2}];
+  //x and y velocities, final velocity will the combination of the two
+  ballVelX=1; //initial x velocity of ball
+  ballVelX=1; //initial y velocity of ball
   function game() {
+    //redraw canvas
     ctx.fillStyle="black";
     ctx.fillRect(0,0,canv.width,canv.height);
-
     ctx.fillStyle="lime";
 
     // draw player1
     ctx.fillRect(player1[0].x, player1[0].y, batWidth, batHeight);
+    player1.push({x:batX1,y:batY1});
+    player1.shift();
 
     // draw player2
     ctx.fillRect(player2[0].x, player2[0].y, batWidth, batHeight);
-
-    player1.push({x:batX1,y:batY1});
-    player1.shift();
     player2.push({x:batX2,y:batY2});
     player2.shift();
 
-    // trail.push({x:px,y:py});
-    // while(trail.length>tail) {
-    // trail.shift();
-    // }
-    // if(ax==px && ay==py) {
-    //     tail++;
-    //     ax=Math.floor(Math.random()*tc);
-    //     ay=Math.floor(Math.random()*tc);
-    // }
-    // ctx.fillStyle="red";
-    // ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+
     // draw the ball
-    // ctx.arc(100, 75, 50, 0, 2 * Math.PI);
+    ctx.beginPath();
+    ctx.arc(ballX, ballY, 50, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fillStyle="lime";
+    ctx.fill();
   }
 
   function keyPush(evt) {
