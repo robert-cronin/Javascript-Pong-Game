@@ -4,15 +4,15 @@
     canv=document.getElementById("gc");
     ctx=canv.getContext("2d");
     document.addEventListener("keydown",keyPush);
-    setInterval(game,1000/15);
+    setInterval(game,0.01);
   }
   batx1=10; //initial plyaer 1 bat x coordinate
   baty1=340; //initial player 1 bat y coordinate
+
   batx2=380; //initial plyaer 2 bat x coordinate
   baty2=10; //initial player 2 bat y coordinate
   batwidth=10; //width of each bat
   batheight=50; //width of each bat
-
   ballx=bally=15; //initial x, y coordinates of the ball
   gs=tc=20;
   xv=yv=0;
@@ -30,35 +30,31 @@
     // draw player2
     ctx.fillRect(player2[0].x, player2[0].y, batwidth, batheight);
 
-    // draw player2
-    for(var i=0;i<player2.length;i++) {
-        ctx.fillRect(player2[i].x*gs,player2[i].y*gs,gs-2,gs-2);
-        if(player2[i].x==px && player2[i].y==py) {
-            tail = 5;
-        }
-    }
-
-    trail.push({x:px,y:py});
-    while(trail.length>tail) {
-    trail.shift();
-    }
-    if(ax==px && ay==py) {
-        tail++;
-        ax=Math.floor(Math.random()*tc);
-        ay=Math.floor(Math.random()*tc);
-    }
-    ctx.fillStyle="red";
-    ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
-
+    player1.push({x:batx1,y:baty1});
+    player1.shift();
+    
+    // trail.push({x:px,y:py});
+    // while(trail.length>tail) {
+    // trail.shift();
+    // }
+    // if(ax==px && ay==py) {
+    //     tail++;
+    //     ax=Math.floor(Math.random()*tc);
+    //     ay=Math.floor(Math.random()*tc);
+    // }
+    // ctx.fillStyle="red";
+    // ctx.fillRect(ax*gs,ay*gs,gs-2,gs-2);
+    // draw the ball
+    // ctx.arc(100, 75, 50, 0, 2 * Math.PI);
   }
 
   function keyPush(evt) {
     switch(evt.keyCode) {
         case 38: //up key
-            baty1+=1;
+            baty1-=10;
             break;
         case 40: //down key
-            xv=0;yv=1;
+            baty1+=10;
             break;
     }
   }
