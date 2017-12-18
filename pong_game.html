@@ -71,11 +71,19 @@
             }
         // player 2
         case 87: //w key
-            batY2+=10;
-            break;
+            if (batY2!=batBoundaryTopY) {
+              batY2-=10;
+              break;
+            } else {
+              break;
+            }
         case 83: //s key
-            batY2-=10;
-            break;
-}
+            if (batY2!=batBoundaryBottomY) {
+              batY2+=10;
+              break;
+            } else {
+              break;
+            }
+      }
   }
 </script>
