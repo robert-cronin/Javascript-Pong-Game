@@ -22,12 +22,13 @@
   // bat properties
   batWidth=10; //width of each bat
   batHeight=50; //width of each bat
+  ballRad=10; //radius of ball
   batBoundaryTopY=10; //bat cant go further than this boundary
   batBoundaryBottomY=390-batHeight; //bat cant go further than this boundary
   // ball properties
   ballX=ballY=400/2; //initial x, y coordinates of the ball
   //x and y velocities, final velocity will the combination of the two
-  ballVelX=0.1; //initial x velocity of ball
+  ballVelX=0.2; //initial x velocity of ball
   ballVelY=0.1; //initial y velocity of ball
   //DEFINE EACH FRAME IN FUNCTION CALLED GAME
   function game() {
@@ -49,7 +50,7 @@
 
     // draw the ball
     ctx.beginPath();
-    ctx.arc(ballX, ballY, 10, 0, 2 * Math.PI);
+    ctx.arc(ballX, ballY, ballRad, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.fillStyle="lime";
     ctx.fill();
@@ -57,6 +58,13 @@
     //move the ball
     ballX+=ballVelX*fps;
     ballY+=ballVelY*fps;
+    //ball boundary constraints
+    if (ballX<=0+ballRad || ballX>=width-ballRad) {
+      ballVelX=-ballVelX;
+    }
+    if (ballY==0+ballRad || ballY==height-ballRad) {
+      ballVelY=-ballVelY;
+    }
   }
   //ADD CONTROLLER
   function controls(evt) {
