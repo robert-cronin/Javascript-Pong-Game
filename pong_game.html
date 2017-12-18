@@ -14,11 +14,10 @@
   batY2=10; //initial player 2 bat y coordinate
   // bat properties
   batWidth=10; //width of each bat
-  batWeight=50; //width of each bat
-  batBoundaryTopY=; //bat cant go further than this boundary
+  batHeight=50; //width of each bat
+  batBoundaryTopY=10; //bat cant go further than this boundary
+  batBoundaryBottomY=390-batHeight; //bat cant go further than this boundary
   ballX=ballY=15; //initial x, y coordinates of the ball
-  gs=tc=20;
-  xv=yv=0;
   player1=[{x:batX1,y:batY1}];
   player2=[{x:batX2,y:batY2}];
   function game() {
@@ -57,13 +56,19 @@
     switch(evt.keyCode) {
         // player 1
         case 38: //up key
-            if (true) {
+            if (batY1!=batBoundaryTopY) {
               batY1-=10;
+              break;
+            } else {
               break;
             }
         case 40: //down key
-            batY1+=10;
-            break;
+            if (batY1!=batBoundaryBottomY) {
+              batY1+=10;
+              break;
+            } else {
+              break;
+            }
         // player 2
         case 87: //w key
             batY2+=10;
