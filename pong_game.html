@@ -14,11 +14,15 @@
   // player 1
   batX1=380; //initial plyaer 1 bat x coordinate
   batY1=340; //initial player 1 bat y coordinate
+  bat1Up = false;
+  bat1Down = false;
   player1=[{x:batX1,y:batY1}];
   player1Score=0;
   // player 2
   batX2=10; //initial plyaer 2 bat x coordinate
   batY2=10; //initial player 2 bat y coordinate
+  bat2Up = false;
+  bat2Down = false;
   player2=[{x:batX2,y:batY2}];
   player2Score=0;
   // bat properties
@@ -44,11 +48,26 @@
     player1.push({x:batX1,y:batY1});
     player1.shift();
 
+    // Move player1
+    if (bat1Up) {
+      batY1-=5;
+    }
+    if (bat1Down) {
+      batY1+=5;
+    }
+
     // draw player2
     ctx.fillRect(player2[0].x, player2[0].y, batWidth, batHeight);
     player2.push({x:batX2,y:batY2});
     player2.shift();
 
+      // Move player1
+      if (bat2Up) {
+        batY2-=5;
+      }
+      if (bat2Down) {
+        batY2+=5;
+      }
 
     // draw the ball
     ctx.beginPath();
@@ -86,32 +105,42 @@
     switch(evt.keyCode) {
         // player 1
         case 38: //up key
-            if (batY1!=batBoundaryTopY) {
-              batY1-=10;
+          bat1Up=true;
+            if (batY1<batBoundaryTopY) {
+              bat1Up=true;
+              bat1Down=false;
               break;
             } else {
+              bat1Up=false;
               break;
             }
         case 40: //down key
-            if (batY1!=batBoundaryBottomY) {
-              batY1+=10;
+          bat1Down=true;
+            if (batY1>batBoundaryBottomY) {
+              bat1Down=true;
+              bat1Up=false;
               break;
             } else {
+              bat1Down=false;
               break;
             }
         // player 2
         case 87: //w key
-            if (batY2!=batBoundaryTopY) {
-              batY2-=10;
+          bat2Up=true;
+            if (batY2>batBoundaryTopY) {
+              bat2Up=true;
               break;
             } else {
+              bat2Up=false;
               break;
             }
         case 83: //s key
-            if (batY2!=batBoundaryBottomY) {
-              batY2+=10;
+          bat2Down=true;
+            if (batY2+batHeight<batBoundaryBottomY) {
+              bat2Down=true;
               break;
             } else {
+              bat2Down=false;
               break;
             }
       }
