@@ -1,6 +1,6 @@
 <canvas id="gc" width="400" height="400"></canvas>
 <script>
-  fps = 1000/50
+  fps = 1000/500
 
   window.onload=function() {
     canv=document.getElementById("gc");
@@ -64,12 +64,21 @@
     //increment scores
     if (ballX<=0-ballRad) {
       player2Score+=1;
+      if (ballX<=0-10*ballRad) {
+        ballX=ballY=400/2;
+      }
     }
     if (ballX>=width+ballRad) {
       player1Score+=1;
+      if (ballX>=width+10*ballRad) {
+        ballX=ballY=400/2;
+      }
     }
     if (ballY==0+ballRad || ballY==height-ballRad) {
       ballVelY=-ballVelY;
+    }
+    if ((ballX<=batX2+ballRad&&ballX>0&&ballY>=batY2&&ballY<=batY2+batHeight) || (ballX>=batX1-ballRad&&ballX<width&&ballY>=batY1&&ballY<=batY1+batHeight&&ballVelX>0)) {
+      ballVelX=-ballVelX;
     }
   }
   //ADD CONTROLLER
