@@ -61,8 +61,12 @@
     ballX+=ballVelX*fps;
     ballY+=ballVelY*fps;
     //ball boundary constraints
-    if (ballX<=0+ballRad || ballX>=width-ballRad) {
-      ballVelX=-ballVelX;
+    //increment scores
+    if (ballX<=0-ballRad) {
+      player2Score+=1;
+    }
+    if (ballX>=width+ballRad) {
+      player1Score+=1;
     }
     if (ballY==0+ballRad || ballY==height-ballRad) {
       ballVelY=-ballVelY;
