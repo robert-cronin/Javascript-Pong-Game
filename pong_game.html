@@ -1,13 +1,14 @@
 <canvas id="gc" width="400" height="400"></canvas>
 <script>
-  fps = 1000/500
+  fps = 1000/50
 
   window.onload=function() {
     canv=document.getElementById("gc");
     ctx=canv.getContext("2d");
     height=canv.height;
     width=canv.width;
-    document.addEventListener("keydown",controls);
+    document.addEventListener("keydown",controlsKeyDown);
+    document.addEventListener("keyup",controlsKeyUp);
     setInterval(game,fps);
   }
   //INITIALIZE ALL CONSTANTS
@@ -33,7 +34,7 @@
   batBoundaryBottomY=390-batHeight; //bat cant go further than this boundary
   // ball properties
   ballX=ballY=400/2; //initial x, y coordinates of the ball
-  //x and y velocities, final velocity will the combination of the two
+  //x and y velocities, final velocity will the combination ofs the two
   ballVelX=0.2; //initial x velocity of ball
   ballVelY=0.1; //initial y velocity of ball
   //DEFINE EACH FRAME IN FUNCTION CALLED GAME
@@ -47,12 +48,12 @@
     ctx.fillRect(player1[0].x, player1[0].y, batWidth, batHeight);
     player1.push({x:batX1,y:batY1});
     player1.shift();
-
     // Move player1
     if (bat1Up) {
+      bat1Down = false
       batY1-=5;
-    }
-    if (bat1Down) {
+    } else if (bat1Down) {
+      bat1Up = false
       batY1+=5;
     }
 
@@ -61,13 +62,14 @@
     player2.push({x:batX2,y:batY2});
     player2.shift();
 
-      // Move player1
-      if (bat2Up) {
-        batY2-=5;
-      }
-      if (bat2Down) {
-        batY2+=5;
-      }
+    // Move player1
+    if (bat2Up) {
+      bat2Down = false
+      batY2-=5;
+    } else if (bat2Down) {
+      bat2Up = false
+      batY2+=5;
+    }
 
     // draw the ball
     ctx.beginPath();
@@ -101,48 +103,67 @@
     }
   }
   //ADD CONTROLLER
-  function controls(evt) {
+  function controlsKeyDown(evt) {
     switch(evt.keyCode) {
         // player 1
         case 38: //up key
           bat1Up=true;
-            if (batY1<batBoundaryTopY) {
-              bat1Up=true;
-              bat1Down=false;
-              break;
-            } else {
-              bat1Up=false;
-              break;
-            }
+          // bat1Down=false;
+          // if (batY1<batBoundaryTopY) {
+          //   bat1Up=false;
+          //   bat1Down=false;
+          //   break;
+          // } else {
+          //   bat1Up=false;
+          //   break;
+          // }
         case 40: //down key
           bat1Down=true;
-            if (batY1>batBoundaryBottomY) {
-              bat1Down=true;
-              bat1Up=false;
-              break;
-            } else {
-              bat1Down=false;
-              break;
-            }
+          // bat1Up=false;
+            // if (batY1+batHeight>batBoundaryBottomY) {
+            //   bat1Down=false;
+            //   bat1Up=false;
+            //   break;
+            // } else {
+            //   bat1Down=false;
+            //   break;
+            // }
         // player 2
         case 87: //w key
           bat2Up=true;
-            if (batY2>batBoundaryTopY) {
-              bat2Up=true;
-              break;
-            } else {
-              bat2Up=false;
-              break;
-            }
+          // bat2Down=false;
+            // if (batY2>batBoundaryTopY) {
+            //   bat2Up=true;
+            //   break;
+            // } else {
+            //   bat2Up=false;
+            //   break;
+            // }
         case 83: //s key
           bat2Down=true;
-            if (batY2+batHeight<batBoundaryBottomY) {
-              bat2Down=true;
-              break;
-            } else {
-              bat2Down=false;
-              break;
-            }
+          // bat2Up=false;
+            // if (batY2+batHeight<batBoundaryBottomY) {
+            //   bat2Down=true;
+            //   break;
+            // } else {
+            //   bat2Down=false;
+            //   break;
+            // }
+      }
+  }
+
+  function controlsKeyUp(evt) {
+    switch(evt.keyCode) {
+        // player 1
+        case 38: //up key
+          bat1Up=false;
+        case 40: //down key
+          bat1Down=false;
+        // player 2
+        case 87: //w key
+          bat2Up=false;
+        case 83: //s key
+          bat2Down=false;
       }
   }
 </script>
