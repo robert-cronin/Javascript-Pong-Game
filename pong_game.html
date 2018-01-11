@@ -1,6 +1,6 @@
 <canvas id="gc" width="400" height="400"></canvas>
 <script>
-  fps = 1000/50
+  fps = 1000/50;
 
   window.onload=function() {
     canv=document.getElementById("gc");
@@ -44,32 +44,63 @@
     ctx.fillRect(0,0,width,height);
     ctx.fillStyle="lime";
 
+    if (bat1Up || bat2Up) {
+      if (bat2Up) {
+        batY1-=5;
+      }
+      if (bat2Up) {
+        batY2-=5;
+      }
+      // bat1Down = false;
+      // bat2Up = false;
+      // bat2down = false;
+    }
+    // Move player2
+    // if (bat2Up) {
+    //   bat2Down = false;
+    //   bat1Down = false;
+    //   bat1Up = false;
+    //   batY2-=5;
+    // }
+    if (bat1Down || bat2Down) {
+      if (bat1Down) {
+        batY1+=5;
+      }
+      if (bat2Down) {
+        batY2+=5;
+      }
+      // bat2Up = false;
+      // bat1Up = false;
+      // bat1Down = false;
+      // batY2+=5;
+    }
+    // Move player1
+    //
+    // if (bat1Down) {
+    //   bat1Up = false;
+    //   batY1+=5;
+    // }
+
     // draw player1
     ctx.fillRect(player1[0].x, player1[0].y, batWidth, batHeight);
     player1.push({x:batX1,y:batY1});
     player1.shift();
-    // Move player1
-    if (bat1Up) {
-      bat1Down = false
-      batY1-=5;
-    } else if (bat1Down) {
-      bat1Up = false
-      batY1+=5;
-    }
+
+
+
 
     // draw player2
     ctx.fillRect(player2[0].x, player2[0].y, batWidth, batHeight);
     player2.push({x:batX2,y:batY2});
     player2.shift();
 
-    // Move player1
-    if (bat2Up) {
-      bat2Down = false
-      batY2-=5;
-    } else if (bat2Down) {
-      bat2Up = false
-      batY2+=5;
-    }
+
+
+
+    console.log(bat1Down);
+    console.log(bat2Down);
+    console.log(bat1Up);
+    console.log(bat2Up);
 
     // draw the ball
     ctx.beginPath();
